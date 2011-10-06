@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Collect and show statistics from several drupal instances.
+ *
+ * A longer description will follow here.
+ */
+
+require_once 'includes/statistics_server.form.inc';
+require_once 'includes/statistics_server.statistics.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function statistics_server_menu() {
+  $items = array();
+  $items['admin/statistics_server'] = array(
+    'title' => 'Statistics',
+    'description' => 'Collect and show statistics of other Drupal installations',
+    'page callback' => 'statistics_server_list',
+    'access arguments' => array('administer statistics_server'),
+  );
+  $items['admin/statistics_server/manage'] = array(
+    'title' => 'Manage Clients',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/statistics_server/general'] = array(
+    'title' => 'General Statistics',
+    'page callback' => 'statistics_server_general',
+    'access arguments' => array('administer statistics_server'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+  $items['admin/statistics_server/more'] = array(
+    'title' => 'More Statistics',
+    'page callback' => 'statistics_server_more',
+    'access arguments' => array('administer statistics_server'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+  );
+  return $items;
+}
+

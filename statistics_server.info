@@ -1,0 +1,6 @@
+name = Statistics Server
+description = "A module to collect statistics from other Drupal installations"
+package = Pro Drupal Development
+core = 7.x
+files[] = statistics_server.module
+files[] = statistics_server.install

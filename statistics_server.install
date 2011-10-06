@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function statistics_server_install() {
+  if (!db_table_exists('statistics_server_clients')) {
+    drupal_install_schema('statistics_server_clients');
+  }
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function statistics_server_uninstall() {
+  if (db_table_exists('statistics_server_clients')) {
+    drupal_uninstall_schema('statistics_server_clients');
+  }
+}
+
+/**
+ * Implements hook_schema()
+ */
+function statistics_server_schema() {
+  $schema['statistics_server_clients'] = array(
+    'description' => 'Stores URL of client to collect statistics from.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => 'true',
+        'not null' => TRUE,
+        'description' => 'primary identifier',
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+      ),
+      'url' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'description' => 'URL to collect statistics from',
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
